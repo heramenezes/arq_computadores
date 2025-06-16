@@ -1,0 +1,19 @@
+.text
+.globl main
+main:
+ori $s1, $0, 3
+ori $s2, $0, 4
+# z=15x
+sll $s3, $s1, 4
+sub $s3, $s3, $s1
+# tmp=67y
+sll $t1, $s2, 6 
+add $t1, $t1, $s2 
+add $t1, $t1, $s2 
+add $t1, $t1, $s2 
+# z=4*(z+67y)
+add $s3, $s3, $t1
+sll $s3, $s3, 2
+
+
+

@@ -1,0 +1,28 @@
+.text
+.globl main
+main:
+ori $s1, $0, 3
+ori $s2, $0, 4
+# tmp=5*x
+add $t1, $s1, $s1 
+add $t1, $t1, $t1 
+add $t1, $t1, $t1 
+add $t1, $t1, $t1 
+sub $t1, $t1, $s1 
+# tmp2=67*y
+add $t2, $s2, $s2 
+add $t2, $t2, $t2 
+add $t2, $t2, $t2 
+add $t2, $t2, $t2 
+add $t2, $t2, $t2 
+add $t2, $t2, $t2 
+add $t2, $t2, $s2 
+add $t2, $t2, $s2 
+add $t2, $t2, $s2 
+# tmp=tmp+tmp2
+add $t1, $t1, $t2
+# z=tmp*4
+add $t1, $t1, $t1
+add $s3, $t1, $t1
+
+
