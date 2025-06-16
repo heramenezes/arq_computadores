@@ -1,0 +1,38 @@
+.text
+.globl main
+main:
+    lui $t0, 0x1001
+    lw $s0, 0($t0)
+    andi $t1, $s0, 0x1
+    beq $t1, $zero, L2
+
+L1:
+    mult $s0, $s0
+    mflo $t3
+    mult $t3, $s0
+    mflo $t3
+    mult $t3, $s0
+    mflo $t2
+    mult $t2, $s0
+    mflo $t2
+    sub $t2, $t2, $t3
+    addi $s1, $t2, 1
+    j L3
+
+L2:
+    mult $s0, $s0
+    mflo $t4
+    mult $t4, $s0
+    mflo $t3
+    mult $t3, $s0
+    mflo $t2
+    sll $t4, $t4, 1
+    add $t2, $t2, $t3
+    sub $s1, $t2, $t4
+
+L3:
+    sw $s1, 4($t0)
+
+.data
+x: .word 3
+y: .word -1

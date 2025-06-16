@@ -1,0 +1,58 @@
+.text
+.globl main
+main:
+    lui $t2, 0x1001
+    lw $s0, 0($t2)
+    lw $s1, 4($t2)
+    
+L1:
+    ori $t3, $zero, 0
+    beq $s0, $zero, L2
+    ori $t3, $zero, 32
+    lui $t4, 0x8000
+    and $t5, $s0, $t4
+    bne $t5, $zero, L2
+
+L3:
+    addi $t3, $t3, -1
+    srl $t4, $t4, 1
+    and $t5, $s0, $t4
+    beq $t5, $zero, L3
+
+L2:
+    or $t0, $zero, $t3
+    ori $t3, $zero, 0
+    beq $s1, $zero, L4
+    ori $t3, $zero, 32
+    lui $t4, 0x8000
+    and $t5, $s1, $t4
+    bne $t5, $zero, L4
+
+L5:
+    addi $t3, $t3, -1
+    srl $t4, $t4, 1
+    and $t5, $s1, $t4
+    beq $t5, $zero, L5
+
+L4:
+    or $t1, $zero, $t3
+    add $t4, $t0, $t1
+    slti $t4, $t4, 33
+    beq $t4, $zero, L6
+
+L7:
+    mult $s0, $s1
+    mflo $s2
+    addi $v0, $zero, 10
+    syscall
+
+L6:
+    mult $s0, $s1
+    mflo $s2
+    mfhi $s3
+    addi $v0, $zero, 10
+    syscall
+
+.data
+x: .word 1073741823
+y: .word 2

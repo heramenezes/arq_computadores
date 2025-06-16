@@ -1,0 +1,29 @@
+.text
+.globl main
+main:
+    lui $t0, 0x1001
+    lw $s0, 0($t0)
+    slti $t1, $s0, 1
+    beq $t1, $zero, L1
+
+L2:
+    mult $s0, $s0
+    mflo $t2
+    mult $t2, $t2
+    mflo $t2
+    addi $s1, $t2, -1
+    j L3
+
+L1:
+    mult $s0, $s0
+    mflo $t2
+    mult $t2, $s0
+    mflo $t2
+    addi $s1, $t2, 1
+
+L3:
+    sw $s1, 4($t0)
+
+.data
+x: .word -4
+y: .word -1
